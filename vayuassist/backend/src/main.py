@@ -1,30 +1,35 @@
-import os
+from dotenv import load_dotenv
+
+# Load env variables FIRST
+load_dotenv()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.api.routes.chat import router as chat_router
-from src.config.logging import setup_logging
+from src.api.routes import auth, chat
+from src.config.database import engine
+from src.models.models import Base
 
-setup_logging()
+# Create tables
+Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="VayuAssist API")
-
-default_origins = "http://localhost:5173,http://localhost:3000"
-allowed_origins = [
-    origin.strip()
-    for origin in os.getenv("ALLOWED_ORIGINS", default_origins).split(",")
-    if origin.strip()
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=allowed_origins,
-    allow_credentials=True,
-    allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type", "Authorization"],
+app = FastAPI(
+    title="VayuAssist API",
+    description="Monsoon Preparedness Assistant",
+    version="1.0.0"
 )
 
-app.include_router(chat_router, prefix="/api/chat", tags=["chat"])
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Routes
+app.include_router(auth.router)
+app.include_router(chat.router)
 
 @app.get("/health")
 def health_check():

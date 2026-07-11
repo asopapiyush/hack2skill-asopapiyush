@@ -1,0 +1,11 @@
+environment          = "prod"
+aws_region           = "us-east-1"
+db_instance_class    = "db.t4g.large"
+db_backup_retention_days = 30
+db_multi_az          = true
+redis_node_type      = "cache.t4g.small"
+redis_num_cache_nodes = 1
+ecs_desired_count    = 2
+ecs_min_capacity     = 2
+ecs_max_capacity     = 10
+frontend_domain      = "app.vayuassist.io"

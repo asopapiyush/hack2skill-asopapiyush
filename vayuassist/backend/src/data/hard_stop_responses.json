@@ -1,8 +1,13 @@
 {
-  "drowning": "🚨 EMERGENCY\nCall local rescue services immediately:\n- Fire (rescue): 101\n- Ambulance: 102\n- Police: 100\n- Disaster Management: 1070\n\nSteps while waiting:\n1. DO NOT attempt self-rescue if you cannot swim\n2. Move to highest available ground\n3. Signal for help (shout, wave)",
-  "electrocution": "🚨 EMERGENCY\nCall local rescue services immediately (Ambulance: 102). \nSteps while waiting:\n1. DO NOT touch the person if they are still in contact with the electrical source.\n2. Turn off the main power supply if safe to do so.\n3. Stay away from water and wet surfaces.",
-  "fire": "🚨 EMERGENCY\nCall local rescue services immediately (Fire: 101). \nSteps while waiting:\n1. Evacuate immediately.\n2. Do not use elevators.\n3. Stay low if there is smoke.",
-  "snake_bite": "🚨 EMERGENCY\nCall local rescue services immediately (Ambulance: 102). \nSteps while waiting:\n1. Keep the person calm and still.\n2. Do not attempt to suck out the venom or cut the wound.\n3. Remove any tight clothing or jewelry near the bite.",
-  "childbirth": "🚨 EMERGENCY\nCall for medical assistance immediately (Ambulance: 102). \nSteps while waiting:\n1. Keep the mother calm and comfortable.\n2. Prepare clean towels and blankets.\n3. Do not intervene medically unless trained.",
-  "heart_attack": "🚨 EMERGENCY\nCall local rescue services immediately (Ambulance: 102). \nSteps while waiting:\n1. Have the person sit down and rest.\n2. Loosen tight clothing.\n3. Ask if they have nitroglycerin and help them take it if prescribed."
+  "drowning": "🚨 DROWNING EMERGENCY\n\nCALL 101 (Fire Department) or 1070 (Disaster Management) IMMEDIATELY\n\nActions to take:\n1. If safe, throw a rope or branch to the person\n2. DO NOT jump in if you can't swim\n3. Call for help immediately\n4. Get professional rescue assistance\n\nNever go into water to save someone unless trained in water rescue.",
+
+  "electrocution": "🚨 ELECTRICAL EMERGENCY\n\nCALL 102 (Ambulance) IMMEDIATELY\n\nActions to take:\n1. DO NOT touch the person with your bare hands\n2. Turn off the power source if it's safe to do so\n3. Move the person away from the electrical source\n4. If unconscious, perform CPR if trained\n5. Keep the person warm while waiting for ambulance",
+
+  "fire": "🚨 FIRE EMERGENCY\n\nCALL 101 (Fire Department) IMMEDIATELY\n\nActions to take:\n1. Alert everyone - EVACUATE IMMEDIATELY\n2. Use stairs - NEVER use elevators\n3. Go to a safe assembly point away from building\n4. Close doors behind you to slow fire spread\n5. Do NOT go back inside for belongings\n\nYour life is more important than any possession.",
+
+  "snake_bite": "🚨 SNAKE BITE EMERGENCY\n\nCALL 102 (Ambulance) IMMEDIATELY\n\nActions to take:\n1. Stay calm - panic speeds up venom absorption\n2. Keep the bitten limb immobilized and below heart level\n3. Wash the bite with soap and water\n4. DO NOT try to catch or kill the snake\n5. DO NOT apply a tourniquet or try to suck venom\n6. Go to hospital immediately - anti-venom needed",
+
+  "childbirth": "🚨 CHILDBIRTH EMERGENCY\n\nCALL 102 (Ambulance) IMMEDIATELY\n\nGO TO THE NEAREST HOSPITAL - DO NOT DELAY\n\nThis is a medical emergency requiring professional help.\nDo not attempt home delivery in emergency situations.\n\nCall ambulance immediately and go to the hospital.",
+
+  "heart_attack": "🚨 HEART ATTACK EMERGENCY\n\nCALL 102 (Ambulance) IMMEDIATELY\n\nActions to take:\n1. Have the person stop all activity immediately\n2. Make them sit or lie down\n3. If available, give aspirin - chew it\n4. Loosen tight clothing\n5. If unconscious and not breathing, perform CPR if trained\n6. Keep the person warm and calm\n\nHeart attacks need emergency medical care - minutes matter."
 }

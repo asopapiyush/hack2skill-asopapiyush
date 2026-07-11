@@ -1,0 +1,138 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - dev
+      - prod
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prod
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        run: pip install -r backend/requirements.txt
+
+      - name: Run backend tests
+        run: |
+          cd backend
+          echo "Tests will go here"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npm ci
+          npm test --if-present
+
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/prod' || github.event_name == 'workflow_dispatch'
+    strategy:
+      matrix:
+        service:
+          - name: chat-service
+            context: backend
+            dockerfile: backend/Dockerfile
+          - name: planning-service
+            context: backend
+            dockerfile: backend/Dockerfile
+          - name: advisory-service
+            context: backend
+            dockerfile: backend/Dockerfile
+          - name: frontend
+            context: frontend
+            dockerfile: frontend/Dockerfile
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push image
+        env:
+          ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/vayuassist/${{ matrix.service.name }}:$IMAGE_TAG \
+            -t $ECR_REGISTRY/vayuassist/${{ matrix.service.name }}:latest \
+            -f ${{ matrix.service.dockerfile }} ${{ matrix.service.context }}
+          docker push $ECR_REGISTRY/vayuassist/${{ matrix.service.name }}:$IMAGE_TAG
+          docker push $ECR_REGISTRY/vayuassist/${{ matrix.service.name }}:latest
+
+  deploy-dev:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'dev')
+    environment: development
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Force ECS redeploy
+        run: |
+          for svc in chat-service planning-service advisory-service frontend-web; do
+            aws ecs update-service \
+              --cluster vayuassist-dev \
+              --service "$svc" \
+              --force-new-deployment \
+              --region $AWS_REGION
+          done
+
+  deploy-prod:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/prod' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'prod')
+    environment: production
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Force ECS redeploy (canary-ready)
+        run: |
+          for svc in chat-service planning-service advisory-service frontend-web; do
+            aws ecs update-service \
+              --cluster vayuassist-prod \
+              --service "$svc" \
+              --force-new-deployment \
+              --region $AWS_REGION
+          done

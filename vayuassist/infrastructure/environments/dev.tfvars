@@ -1,0 +1,10 @@
+environment          = "dev"
+aws_region           = "us-east-1"
+db_instance_class    = "db.t4g.medium"
+db_backup_retention_days = 7
+db_multi_az          = false
+redis_node_type      = "cache.t4g.micro"
+redis_num_cache_nodes = 1
+ecs_desired_count    = 1
+ecs_min_capacity     = 1
+ecs_max_capacity     = 4

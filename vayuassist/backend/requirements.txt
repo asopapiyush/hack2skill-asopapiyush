@@ -2,13 +2,8 @@ fastapi
 uvicorn
 pydantic
 pydantic-settings
-alembic
-psycopg2-binary
-sqlalchemy
-redis
-pinecone-client
-openai
 python-jose[cryptography]
 passlib[bcrypt]
-prometheus-client
-python-multipart
+python-dotenv
+openai>=1.0.0
+sqlalchemy
