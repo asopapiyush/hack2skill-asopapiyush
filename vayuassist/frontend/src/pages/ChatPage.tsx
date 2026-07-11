@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import '../styles/ChatPage.css';
+import { API_URL } from '../config';
 
 interface Props {
   token: string;
@@ -43,7 +44,7 @@ export default function ChatPage({ token, userProfile, onLogout, onProfileUpdate
 
   const loadChatHistory = async () => {
     try {
-      const response = await fetch(`http://localhost:8001/chat/history?token=${token}`);
+      const response = await fetch(`${API_URL}/chat/history?token=${token}`);
       if (response.ok) {
         const history = await response.json();
         const formattedHistory = [];
@@ -68,7 +69,7 @@ export default function ChatPage({ token, userProfile, onLogout, onProfileUpdate
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8001/chat/message', {
+      const response = await fetch(`${API_URL}/chat/message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +110,7 @@ export default function ChatPage({ token, userProfile, onLogout, onProfileUpdate
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8001/auth/profile?token=${token}`, {
+      const response = await fetch(`${API_URL}/auth/profile?token=${token}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../styles/LoginPage.css';
+import { API_URL } from '../config';
 
 interface Props {
   onLoginSuccess: (token: string, userId: string) => void;
@@ -24,7 +25,7 @@ export default function LoginPage({ onLoginSuccess }: Props) {
       : { email, password, full_name: fullName };
 
     try {
-      const response = await fetch(`http://localhost:8001${endpoint}`, {
+      const response = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

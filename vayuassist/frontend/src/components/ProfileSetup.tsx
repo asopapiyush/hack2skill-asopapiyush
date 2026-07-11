@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import '../styles/ProfileSetup.css'
+import { API_URL } from '../config'
 
 interface ProfileSetupProps {
   userProfile: any
-  token: string
   onProfileUpdate: (profile: any) => void
 }
 
 export default function ProfileSetup({
   userProfile,
-  token,
   onProfileUpdate
 }: ProfileSetupProps) {
   const [familySize, setFamilySize] = useState(userProfile?.family_size || '')
@@ -21,7 +20,7 @@ export default function ProfileSetup({
   const handleSave = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:8000/auth/profile', {
+      const response = await fetch(`${API_URL}/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

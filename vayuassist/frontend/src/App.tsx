@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import LoginPage from './pages/LoginPage';
 import ChatPage from './pages/ChatPage';
+import { API_URL } from './config';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -20,7 +21,7 @@ function App() {
 
   const loadUserProfile = async (authToken: string) => {
     try {
-      const response = await fetch('http://localhost:8001/auth/me', {
+      const response = await fetch(`${API_URL}/auth/me`, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }
