@@ -1,0 +1,8 @@
+{
+  "drowning": "🚨 EMERGENCY\nCall local rescue services immediately:\n- Fire (rescue): 101\n- Ambulance: 102\n- Police: 100\n- Disaster Management: 1070\n\nSteps while waiting:\n1. DO NOT attempt self-rescue if you cannot swim\n2. Move to highest available ground\n3. Signal for help (shout, wave)",
+  "electrocution": "🚨 EMERGENCY\nCall local rescue services immediately (Ambulance: 102). \nSteps while waiting:\n1. DO NOT touch the person if they are still in contact with the electrical source.\n2. Turn off the main power supply if safe to do so.\n3. Stay away from water and wet surfaces.",
+  "fire": "🚨 EMERGENCY\nCall local rescue services immediately (Fire: 101). \nSteps while waiting:\n1. Evacuate immediately.\n2. Do not use elevators.\n3. Stay low if there is smoke.",
+  "snake_bite": "🚨 EMERGENCY\nCall local rescue services immediately (Ambulance: 102). \nSteps while waiting:\n1. Keep the person calm and still.\n2. Do not attempt to suck out the venom or cut the wound.\n3. Remove any tight clothing or jewelry near the bite.",
+  "childbirth": "🚨 EMERGENCY\nCall for medical assistance immediately (Ambulance: 102). \nSteps while waiting:\n1. Keep the mother calm and comfortable.\n2. Prepare clean towels and blankets.\n3. Do not intervene medically unless trained.",
+  "heart_attack": "🚨 EMERGENCY\nCall local rescue services immediately (Ambulance: 102). \nSteps while waiting:\n1. Have the person sit down and rest.\n2. Loosen tight clothing.\n3. Ask if they have nitroglycerin and help them take it if prescribed."
+}
